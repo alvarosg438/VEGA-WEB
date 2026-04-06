@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vega Arquitectos — Supervisión y Control de Obra</title>
+<meta name="description" content="32 años de experiencia en supervisión y construcción de obra. Presencia en 18 estados de la República Mexicana. Clientes: Walmart, AutoZone, OXXO, Cinépolis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0d0d0d;
+    --black-soft: #1a1a1a;
+    --black-card: #111111;
+    --orange: #E8500A;
+    --orange-light: #FF6B2B;
+    --white: #FFFFFF;
+    --gray-light: #F4F3F0;
+    --gray-mid: #888888;
+    --gray-dark: #444444;
+    --border: rgba(255,255,255,0.08);
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 72px;
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .nav-logo img {
+    height: 36px;
+    width: auto;
+    filter: brightness(0) invert(1);
+  }
+  .nav-logo-text {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+
+  .nav-cta {
+    background: var(--orange);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--orange-light); }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--white);
+    transition: all 0.3s;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 5% 10%;
+    overflow: hidden;
+    background: var(--black);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      linear-gradient(to bottom, rgba(13,13,13,0.3) 0%, rgba(13,13,13,0.7) 60%, rgba(13,13,13,1) 100%),
+      linear-gradient(105deg, rgba(232,80,10,0.08) 0%, transparent 50%);
+    z-index: 1;
+  }
+
+  /* Geometric pattern background */
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.06;
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.3) 60px, rgba(255,255,255,0.3) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.3) 60px, rgba(255,255,255,0.3) 61px);
+  }
+
+  .hero-accent {
+    position: absolute;
+    top: 0;
+    left: 5%;
+    width: 3px;
+    height: 100%;
+    background: var(--orange);
+    z-index: 2;
+    transform-origin: top;
+    animation: scaleIn 1.2s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+  }
+
+  @keyframes scaleIn {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 900px;
+    padding-left: 40px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s both;
+  }
+
+  .hero-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 700;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s both;
+  }
+
+  .hero-h1 em {
+    font-style: normal;
+    color: var(--orange);
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1s both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1.2s both;
+  }
+
+  .btn-primary {
+    background: var(--orange);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Hero scroll indicator */
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    right: 5%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1.6s both;
+  }
+  .hero-scroll span {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    writing-mode: vertical-lr;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--orange), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ── METRICS STRIP ── */
+  .metrics-strip {
+    background: var(--orange);
+    padding: 0;
+  }
+  .metrics-inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .metric-item {
+    padding: 36px 40px;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    text-align: center;
+    position: relative;
+  }
+  .metric-item:last-child { border-right: none; }
+  .metric-num {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .metric-num sup {
+    font-size: 24px;
+    font-weight: 400;
+    vertical-align: super;
+  }
+  .metric-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 5%; }
+
+  .section-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px;
+    position: relative;
+    padding-left: 24px;
+  }
+  .section-tag::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 1.5px;
+    background: var(--orange);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  .section-title.dark { color: var(--black); }
+
+  .section-body {
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.8;
+    max-width: 600px;
+  }
+
+  .section-body.dark { color: rgba(0,0,0,0.6); }
+
+  /* ── QUIÉNES SOMOS ── */
+  .about {
+    background: var(--black);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-left { }
+
+  .about-right {
+    position: relative;
+  }
+
+  .about-visual {
+    background: var(--black-card);
+    border: 1px solid var(--border);
+    padding: 48px;
+    position: relative;
+  }
+
+  .about-visual::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--orange);
+  }
+
+  .about-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .about-stat { }
+  .about-stat-num {
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .about-stat-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.04em;
+  }
+
+  .about-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0;
+  }
+
+  .about-certifications {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .cert-badge {
+    background: rgba(232,80,10,0.1);
+    border: 1px solid rgba(232,80,10,0.3);
+    padding: 8px 16px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--orange);
+    text-transform: uppercase;
+  }
+
+  /* ── MISION VISION ── */
+  .mision {
+    background: var(--black-soft);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mision-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+
+  .mv-card {
+    padding: 60px 48px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .mv-card:last-child { border-right: none; }
+
+  .mv-icon {
+    font-family: var(--font-display);
+    font-size: 72px;
+    font-weight: 700;
+    color: rgba(232,80,10,0.12);
+    line-height: 1;
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .mv-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .mv-body {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+  }
+
+  .valores-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .valor-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .valor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--orange);
+    flex-shrink: 0;
+  }
+
+  /* ── SERVICIOS ── */
+  .servicios { background: var(--black); }
+
+  .servicios-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+  }
+
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+
+  .servicio-card {
+    background: var(--black-card);
+    padding: 48px 36px;
+    border-top: 3px solid transparent;
+    transition: border-color 0.3s, background 0.3s, transform 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .servicio-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: 0;
+    background: rgba(232,80,10,0.05);
+    transition: height 0.3s;
+  }
+
+  .servicio-card:hover {
+    border-color: var(--orange);
+    background: #141414;
+  }
+
+  .servicio-card:hover::after { height: 100%; }
+
+  .servicio-num {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--orange);
+    margin-bottom: 28px;
+    display: block;
+  }
+
+  .servicio-title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .servicio-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+  }
+
+  /* ── CLIENTES ── */
+  .clientes { background: var(--gray-light); padding: 100px 5%; }
+
+  .clientes-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 72px;
+  }
+
+  .cliente-cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  .cliente-card {
+    background: var(--white);
+    padding: 36px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-top: 3px solid transparent;
+    transition: border-color 0.3s;
+    min-height: 140px;
+  }
+
+  .cliente-card:hover { border-color: var(--orange); }
+
+  .cliente-name {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+
+  .cliente-tipo {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--gray-mid);
+    text-transform: uppercase;
+  }
+
+  .cliente-pct {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+
+  /* Estados strip */
+  .estados-strip {
+    background: var(--black);
+    padding: 48px 5%;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .estados-label {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    white-space: nowrap;
+  }
+
+  .estados-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .estado-tag {
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.04em;
+    padding: 4px 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* ── CAPACIDAD ── */
+  .capacidad { background: var(--black-soft); border-top: 1px solid var(--border); }
+
+  .capacidad-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .capacidad-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .cap-stat {
+    background: var(--black-card);
+    border: 1px solid var(--border);
+    padding: 32px 28px;
+    border-top: 2px solid var(--orange);
+  }
+
+  .cap-stat-num {
+    font-family: var(--font-display);
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .cap-stat-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .capacidad-right { }
+
+  .cap-clients {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .cap-client-row {
+    background: var(--black-card);
+    border: 1px solid var(--border);
+    padding: 28px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 0.3s;
+  }
+
+  .cap-client-row:hover { border-color: rgba(232,80,10,0.4); }
+
+  .cap-client-name {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--white);
+  }
+
+  .cap-client-service {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .cap-client-pct {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--orange);
+  }
+
+  /* ── EQUIPO ── */
+  .equipo { background: var(--black); }
+
+  .equipo-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .team-card {
+    background: var(--black-card);
+    padding: 40px 28px;
+    border-top: 3px solid transparent;
+    transition: border-color 0.3s;
+  }
+
+  .team-card:hover { border-color: var(--orange); }
+
+  .team-initial {
+    width: 56px;
+    height: 56px;
+    background: rgba(232,80,10,0.15);
+    border: 1px solid rgba(232,80,10,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--orange);
+    margin-bottom: 20px;
+  }
+
+  .team-name {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .team-role {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+  }
+
+  /* ── TECNOLOGÍA ── */
+  .tecnologia { background: var(--black-soft); border-top: 1px solid var(--border); }
+
+  .tec-inner {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .tec-categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .tec-cat {
+    background: var(--black-card);
+    border: 1px solid var(--border);
+    padding: 40px 32px;
+  }
+
+  .tec-cat-title {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tec-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tec-list li {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .tec-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 6px;
+    height: 1px;
+    background: var(--orange);
+  }
+
+  /* ── ACREDITACIONES ── */
+  .acreditaciones { background: var(--black); }
+
+  .acred-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .acred-card {
+    background: var(--black-card);
+    border: 1px solid var(--border);
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-top: 3px solid var(--orange);
+  }
+
+  .acred-code {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  .acred-name {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  .acred-num {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .acred-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+  }
+
+  .certs-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 48px;
+  }
+
+  .cert-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 10px 20px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── CONTACTO ── */
+  .contacto { background: var(--black-soft); border-top: 1px solid var(--border); }
+
+  .contacto-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .form-input, .form-textarea {
+    background: var(--black-card);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 300;
+    padding: 14px 18px;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--orange);
+  }
+
+  .form-input::placeholder, .form-textarea::placeholder {
+    color: rgba(255,255,255,0.2);
+  }
+
+  .form-textarea { resize: vertical; min-height: 120px; }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .contact-item-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  .contact-item-value {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  a.contact-item-value:hover { color: var(--orange); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080808;
+    border-top: 1px solid var(--border);
+    padding: 48px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer-logo img {
+    height: 32px;
+    filter: brightness(0) invert(1);
+    opacity: 0.5;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.04em;
+  }
+
+  .footer-domain {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 1024px) {
+    .metrics-inner { grid-template-columns: repeat(2, 1fr); }
+    .servicios-grid { grid-template-columns: repeat(2, 1fr); }
+    .equipo-grid { grid-template-columns: repeat(3, 1fr); }
+    .cliente-cards { grid-template-columns: repeat(3, 1fr); }
+    .tec-categories { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 5%; }
+    .nav-links, .nav-cta { display: none; }
+    .nav-toggle { display: flex; }
+
+    .about { grid-template-columns: 1fr; gap: 48px; }
+    .mision-inner { grid-template-columns: 1fr; }
+    .mv-card { border-right: none; border-bottom: 1px solid var(--border); }
+    .servicios-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+    .servicios-grid { grid-template-columns: 1fr; }
+    .cliente-cards { grid-template-columns: repeat(2, 1fr); }
+    .clientes-header { grid-template-columns: 1fr; gap: 40px; }
+    .capacidad-inner { grid-template-columns: 1fr; gap: 48px; }
+    .equipo-grid { grid-template-columns: repeat(2, 1fr); }
+    .tec-inner { grid-template-columns: 1fr; gap: 48px; }
+    .tec-categories { grid-template-columns: 1fr; }
+    .acred-grid { grid-template-columns: 1fr; }
+    .contacto-inner { grid-template-columns: 1fr; gap: 48px; }
+    .metrics-inner { grid-template-columns: repeat(2, 1fr); }
+    .hero-content { padding-left: 24px; }
+    .estados-strip { flex-direction: column; align-items: flex-start; gap: 16px; }
+    footer { flex-direction: column; text-align: center; }
+  }
+
+  /* Animation on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#inicio" class="nav-logo">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/wAARCAFQAVADACIAAREBAhEB/9sAQwAIBgYHBgUIBwcHCQkICgwUDQwLCwwZEhMPFB0aHx4dGhwcICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/9sAQwEJCQkMCwwYDQ0YMiEcITIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMAAAERAhEAPwD36iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAWiiigBKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigBaKKKAEooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAFooooASiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAFooooASiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAWiiigBKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKoatrOnaFYPe6peQ2tsn V5GwPoB1J9hXgvjj9oC5ujJY+E4zbxfdN9Mv7xv9xTwv1OT7CgD6Jor5O8HfGvxJ4cnEWoyvq1iz ZyZbc8+pOP0ya+mfCXj/w/4zt w3Su0JGHtpSFkT6jv9RkexoA6iiiigAooooAKKKKACiiigAooooAKKKKAFooooASiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAopaK4fxp8UvDvgtGhnnF1qIHy2duQWB7bj0UfXn0BoA7SSRIkaSRwiKCWZjgAe5ryPxv8d9I0TzLLw+qatejIM2f3EZ+o5Y/Tj3rxjxp8UfEXjSRric2unE/LZ25IUjtuPVj9ePQCuHoA2vEXijWfFWoG91i+kuZM/KpOEQeiqOB+FYtFdz4L+FniLxo6TQQG004n5ry4UhSP8AZHVj9OPUigDhqntbu4srmO5tZ5IJ4zuSSJirKfUEdK9X8ZfAbWtDgN3okp1a1VcvGE2zL6kLk7h9OfavJZI3ikaORGR1JDKwwQfcUAe3eCfj/d2fl2XiqNrqEYAvYVAkUerLwG+owfY178o+t6br9gl9pV7Fd27Dh42zg+hHUH2PNfCNbGgeJtY8L34vNHvpbWUH5gpyrj0ZehH1FAH3NRXjfgn496Xq/l2XiNE068PAuFJMLn1OeU/HI969ghljnhWWKRZI3GVdSCGB7gjrQBJRRRQAUUUUAFFFFABRRRQAtFFFACUUUUAFFFFABS0leefGnUbzSvh1Pe2FzLbXMVzCUliYqwO71oA9Dor5/wDBH7QJHl2Pi2LI4AvYF5/4Gn9R+Ve6adqllq9lHeafdo9s/wBuKRkj0II5BHqOaALlFFFABRRRQAUUUUAFFFFABRRUF3eW2n2slzeXEcEEYy8sjBVUepJoAnrF8ReKtG8KWJu9Yvo7ZMHYpOXkI7Ko5JryTxx+0Bb23mWPhOITyjKtfTLhFPqinlvqcD2NeDatq+o65fve6neTXdw/WSVsn6D0HsKAPT/G/x21fXDJZaAr6ZYnIM2f38g+o4Uew5968jkkeWRpJGLOxJLMckk+9MqxZ2V1qF1Ha2dvJcTyHCRRKWZj7AUAV62/DnhTWvFd8LTR7GS5fje4GEjHqzHgCvXPA/7P8PPce Xfeli0JGHtpSFkT6jv9RkexoA6iiiigAooooAKKKKACiiigAooooAKKKKACiiigBaKKKAEooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAopaK4fxp8UvDvgtGhnnF1qIHy2duQWB7bj0UfXn0BoA7SSRIkaSRwiKCWZjgAe5ryPxv8d9I0TzLLw+qaavejIM2f3EZ+o5Y/Tj3rxjxp8UfEXjSRric2unE/LZ25IUjtuPVj9ePQCuHoA2vEXijWfFWoG91i+kuZM/KpOEQeiqOB+FYtFdz4L+FniLxo6TQQG004n5ry4UhSP8AZHVj9OPUigDhqntbu4srmO5tZ5IJ4zuSSJirKfUEdK9X8ZfAbWtDgN3okp1a1VcvGE2zL6kLk7h9OfavJZI3ikaORGR1JDKwwQfcUAe3eCfj/d2fl2XiqNrqEYAvYVAkUerLwG+owfY178o+t6br9gl9pV7Fd27Dh42zg+hHUH2PNfCNbGgeJtY8L34vNHvpbWUH5gpyrj0ZehH1FAH3NRXjfgn496Xq/l2XiNE068PAuFJMLn1OeU/HI969ghljnhWWKRZI3GVdSCGB7gjrQBJRRRQAUUUUAFFFFABRRRQAtFFFACUUUUAFFFFABS0leefGnUbzSvh1Pe2FzLbXMVzCUliYqwO71oA9Dor5/wDBH7QJHl2Pi2LI4AvYF5/4Gn9R+Ve6adqllq9lHeafdo9s/wBuKRkj0II5BHqOaALlFFFABRRRQAUUUUAFFFFABRRUF3eW2n2slzeXEcEEYy8sjBVUepJoAnrF8ReKtG8KWJu9Yvo7ZMHYpOXkI7Ko5JryTxx+0Bb23mWPhOITyjKtfTLhFPqinlvqcD2NeDatq+o65fve6neTXdw/WSVsn6D0HsKAPT/G/x21fXDJZaAr6ZYnIM2f38g+o4Uew5968jkkeWRpJGLOxJLMckk+9MqxZ2V1qF1Ha2dvJcTyHCRRKWZj7AUAV62/DnhTWvFd8LTR7GS5fje4GEjHqzHgCvXPA/7P8APce Xfeli0JGHtpSFkT6jv9RkexoA6iiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAWiiigBKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigBaKKKAEooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAFooooASiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAFooooASiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAFooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//2Q==" alt="Vega Arquitectos">
+    <span class="nav-logo-text">Vega Arquitectos</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#clientes">Clientes</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#acreditaciones">Acreditaciones</a></li>
+  </ul>
+  <a href="#contacto" class="nav-cta">Contáctanos</a>
+  <button class="nav-toggle" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-pattern"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Supervisión · Construcción · Control de Obra</div>
+    <h1 class="hero-h1">Construimos<br>con <em>Precisión</em><br>y Experiencia</h1>
+    <p class="hero-sub">32 años transformando proyectos en realidades. Presencia en 18 estados de la República Mexicana con los clientes más exigentes del país.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-primary">Hablar con nosotros</a>
+      <a href="#nosotros" class="btn-outline">Conocer la empresa</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- METRICS STRIP -->
+<div class="metrics-strip">
+  <div class="metrics-inner">
+    <div class="metric-item">
+      <div class="metric-num">32</div>
+      <div class="metric-label">Años de experiencia</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-num">312</div>
+      <div class="metric-label">Proyectos completados</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-num">18</div>
+      <div class="metric-label">Estados de la República</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-num">77</div>
+      <div class="metric-label">Profesionistas</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIÉNES SOMOS -->
+<div class="about" id="nosotros">
+  <div class="about-left reveal">
+    <div class="section-tag">Quiénes somos</div>
+    <h2 class="section-title">Empresa de<br>Referencia en<br>Construcción</h2>
+    <p class="section-body" style="margin-top: 24px; margin-bottom: 32px;">Fundada en 1993 en Michoacán, Vega Arquitectos es una firma especializada en la generación, control y supervisión de obra para iniciativa pública y privada. Desde el año 2000, hemos ejecutado proyectos en 18 estados de la República, construyendo alianzas de largo plazo con las cadenas comerciales más importantes del país.</p>
+    <a href="#contacto" class="btn-primary">Iniciar un proyecto</a>
+  </div>
+  <div class="about-right reveal">
+    <div class="about-visual">
+      <div class="about-stat-grid">
+        <div class="about-stat">
+          <div class="about-stat-num">+50,000</div>
+          <div class="about-stat-label">m² construidos</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">163</div>
+          <div class="about-stat-label">Proyectos OXXO</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">11</div>
+          <div class="about-stat-label">Obras activas 2025</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">24+</div>
+          <div class="about-stat-label">Años con clientes clave</div>
+        </div>
+      </div>
+      <div class="about-divider"></div>
+      <div class="about-certifications">
+        <div class="cert-badge">REPSE</div>
+        <div class="cert-badge">ISNetworld</div>
+        <div class="cert-badge">D&B 1A3</div>
+        <div class="cert-badge">MCR "A"</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MISIÓN / VISIÓN / VALORES -->
+<section class="mision">
+  <div class="mision-inner">
+    <div class="mv-card reveal">
+      <span class="mv-icon">01</span>
+      <div class="mv-title">Misión</div>
+      <p class="mv-body">Ser referente en la industria de la construcción a través de los servicios que ofrecemos, generando valor agregado y convirtiéndonos en socios estratégicos de nuestros clientes.</p>
+    </div>
+    <div class="mv-card reveal">
+      <span class="mv-icon">02</span>
+      <div class="mv-title">Visión</div>
+      <p class="mv-body">Ser la organización No. 1 de la República Mexicana en el sector de la construcción y servicios complementarios, apoyando el core business de nuestros clientes y generando mejoras en el entorno.</p>
+    </div>
+    <div class="mv-card reveal">
+      <span class="mv-icon">03</span>
+      <div class="mv-title">Valores</div>
+      <div class="valores-grid">
+        <div class="valor-item"><div class="valor-dot"></div>Confianza</div>
+        <div class="valor-item"><div class="valor-dot"></div>Ética</div>
+        <div class="valor-item"><div class="valor-dot"></div>Calidad</div>
+        <div class="valor-item"><div class="valor-dot"></div>Resp. Social</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="servicios" id="servicios">
+  <div class="servicios-header">
+    <div>
+      <div class="section-tag">Lo que hacemos</div>
+      <h2 class="section-title">Nuestros<br>Servicios</h2>
+    </div>
+    <p class="section-body">Aplicamos un sistema flexible de tiempo y costos que se adapta a cada proyecto, con enfoque en la optimización de recursos, calidad y tiempos de entrega.</p>
+  </div>
+  <div class="servicios-grid">
+    <div class="servicio-card reveal">
+      <span class="servicio-num">01</span>
+      <div class="servicio-title">Supervisión<br>de Obra</div>
+      <p class="servicio-body">Control integral del avance, calidad y cumplimiento normativo durante todas las etapas de la obra. Reporteo continuo al cliente.</p>
+    </div>
+    <div class="servicio-card reveal">
+      <span class="servicio-num">02</span>
+      <div class="servicio-title">Obra<br>Nueva</div>
+      <p class="servicio-body">Ejecución de proyectos de construcción desde cero: plazas comerciales, tiendas de conveniencia, bodegas industriales y desarrollos residenciales.</p>
+    </div>
+    <div class="servicio-card reveal">
+      <span class="servicio-num">03</span>
+      <div class="servicio-title">Remodelación<br>Omnicanal</div>
+      <p class="servicio-body">Adecuaciones y transformaciones de espacios comerciales en operación, minimizando el impacto en la operación del cliente.</p>
+    </div>
+    <div class="servicio-card reveal">
+      <span class="servicio-num">04</span>
+      <div class="servicio-title">Residencial<br>y Vertical</div>
+      <p class="servicio-body">Proyectos residenciales ejecutivos, ampliaciones y adecuaciones de bienes inmuebles. Horizontal y vertical en toda la República.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTES -->
+<section class="clientes" id="clientes">
+  <div class="clientes-header">
+    <div>
+      <div class="section-tag" style="color: var(--orange);">Nuestros clientes</div>
+      <h2 class="section-title dark">24 Años<br>Construyendo<br>Confianza</h2>
+    </div>
+    <p class="section-body dark">Más de dos décadas de alianza estratégica con las cadenas comerciales más importantes del país, trabajando bajo sus estándares más exigentes de calidad y seguridad.</p>
+  </div>
+  <div class="cliente-cards">
+    <div class="cliente-card">
+      <div class="cliente-pct">30%</div>
+      <div class="cliente-name">Walmart</div>
+      <div class="cliente-tipo">Supervisión</div>
+    </div>
+    <div class="cliente-card">
+      <div class="cliente-pct">30%</div>
+      <div class="cliente-name">El Ganso</div>
+      <div class="cliente-tipo">Supervisión</div>
+    </div>
+    <div class="cliente-card">
+      <div class="cliente-pct">20%</div>
+      <div class="cliente-name">OXXO</div>
+      <div class="cliente-tipo">Construcción</div>
+    </div>
+    <div class="cliente-card">
+      <div class="cliente-pct">13%</div>
+      <div class="cliente-name">AutoZone</div>
+      <div class="cliente-tipo">Supervisión</div>
+    </div>
+    <div class="cliente-card">
+      <div class="cliente-pct">7%</div>
+      <div class="cliente-name">Residencial</div>
+      <div class="cliente-tipo">Construcción</div>
+    </div>
+  </div>
+</section>
+
+<!-- ESTADOS STRIP -->
+<div class="estados-strip">
+  <div class="estados-label">Presencia nacional</div>
+  <div class="estados-list">
+    <span class="estado-tag">Michoacán</span>
+    <span class="estado-tag">Jalisco</span>
+    <span class="estado-tag">CDMX</span>
+    <span class="estado-tag">Estado de México</span>
+    <span class="estado-tag">Guanajuato</span>
+    <span class="estado-tag">Guerrero</span>
+    <span class="estado-tag">Sonora</span>
+    <span class="estado-tag">Sinaloa</span>
+    <span class="estado-tag">Veracruz</span>
+    <span class="estado-tag">Oaxaca</span>
+    <span class="estado-tag">Chihuahua</span>
+    <span class="estado-tag">Nuevo León</span>
+    <span class="estado-tag">Coahuila</span>
+    <span class="estado-tag">Tamaulipas</span>
+    <span class="estado-tag">Puebla</span>
+    <span class="estado-tag">Yucatán</span>
+    <span class="estado-tag">Baja California</span>
+    <span class="estado-tag">Quintana Roo</span>
+  </div>
+</div>
+
+<!-- CAPACIDAD -->
+<section class="capacidad" id="capacidad">
+  <div class="capacidad-inner">
+    <div>
+      <div class="section-tag">Capacidad de trabajo</div>
+      <h2 class="section-title">Escala y<br>Solidez<br>Operativa</h2>
+      <p class="section-body" style="margin-top: 24px;">Nuestra capacidad se sustenta en un equipo interdisciplinario, procesos internos probados y tecnología aplicada a cada etapa de la obra.</p>
+      <div class="capacidad-stats">
+        <div class="cap-stat reveal">
+          <div class="cap-stat-num">77</div>
+          <div class="cap-stat-label">Profesionistas</div>
+        </div>
+        <div class="cap-stat reveal">
+          <div class="cap-stat-num">61</div>
+          <div class="cap-stat-label">Personal operativo</div>
+        </div>
+        <div class="cap-stat reveal">
+          <div class="cap-stat-num">16</div>
+          <div class="cap-stat-label">Área administrativa</div>
+        </div>
+        <div class="cap-stat reveal">
+          <div class="cap-stat-num">20</div>
+          <div class="cap-stat-label">Meta obras/año</div>
+        </div>
+      </div>
+    </div>
+    <div class="capacidad-right reveal">
+      <div class="section-tag" style="margin-bottom: 24px;">Formatos Walmart atendidos</div>
+      <div class="cap-clients">
+        <div class="cap-client-row">
+          <div>
+            <div class="cap-client-name">Supercenter</div>
+            <div class="cap-client-service">Supervisión de obra</div>
+          </div>
+        </div>
+        <div class="cap-client-row">
+          <div>
+            <div class="cap-client-name">Sam's Club</div>
+            <div class="cap-client-service">Supervisión de obra</div>
+          </div>
+        </div>
+        <div class="cap-client-row">
+          <div>
+            <div class="cap-client-name">Bodega Aurrerá</div>
+            <div class="cap-client-service">Supervisión de obra</div>
+          </div>
+        </div>
+        <div class="cap-client-row">
+          <div>
+            <div class="cap-client-name">Walmart Express</div>
+            <div class="cap-client-service">Supervisión de obra</div>
+          </div>
+        </div>
+        <div class="cap-client-row">
+          <div>
+            <div class="cap-client-name">CEDIS / VIPS / Suburbia</div>
+            <div class="cap-client-service">Supervisión de obra</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPO -->
+<section class="equipo" id="equipo">
+  <div class="section-tag">Liderazgo</div>
+  <h2 class="section-title">Equipo<br>Directivo</h2>
+  <div class="equipo-grid">
+    <div class="team-card reveal">
+      <div class="team-initial">AV</div>
+      <div class="team-name">Arq. Alejandro<br>Vega Marín</div>
+      <div class="team-role">Dirección General</div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-initial">AV</div>
+      <div class="team-name">Arq. Alonso<br>Vega Marín</div>
+      <div class="team-role">Dirección de Construcción y Desarrollo Urbano</div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-initial">AV</div>
+      <div class="team-name">Arq. Alejandro<br>Vega Arrieta</div>
+      <div class="team-role">Subdirector / Coordinador de Obra</div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-initial">AV</div>
+      <div class="team-name">Arq. Analía<br>Vega Arrieta</div>
+      <div class="team-role">Subdirector / Dirección Recursos Humanos</div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-initial">LV</div>
+      <div class="team-name">Ing. Luis Alonso<br>Vega</div>
+      <div class="team-role">Dirección Desarrollo Inmobiliario</div>
+    </div>
+  </div>
+</section>
+
+<!-- TECNOLOGÍA -->
+<section class="tecnologia" id="tecnologia">
+  <div class="tec-inner">
+    <div>
+      <div class="section-tag">Infraestructura</div>
+      <h2 class="section-title">Recursos<br>Tecno-<br>lógicos</h2>
+      <p class="section-body" style="margin-top: 24px;">Contamos con tecnología de vanguardia aplicada a cada fase del proceso constructivo, garantizando precisión, documentación y trazabilidad total de cada proyecto.</p>
+    </div>
+    <div class="tec-categories">
+      <div class="tec-cat reveal">
+        <div class="tec-cat-title">Equipo de campo</div>
+        <ul class="tec-list">
+          <li>Computadoras y tablets</li>
+          <li>Niveles láser</li>
+          <li>Equipo topográfico</li>
+          <li>Drones de inspección</li>
+          <li>Conectividad Starlink</li>
+        </ul>
+      </div>
+      <div class="tec-cat reveal">
+        <div class="tec-cat-title">Software</div>
+        <ul class="tec-list">
+          <li>AutoCAD / Revit</li>
+          <li>3ds Max / SketchUp</li>
+          <li>BIM — modelado</li>
+          <li>Gestión de proyectos</li>
+          <li>Control de calidad</li>
+        </ul>
+      </div>
+      <div class="tec-cat reveal">
+        <div class="tec-cat-title">Procesos</div>
+        <ul class="tec-list">
+          <li>Supervisión documentada</li>
+          <li>Control de calidad</li>
+          <li>Seg. e higiene (STPS)</li>
+          <li>KPIs de avance de obra</li>
+          <li>Reportes periódicos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACREDITACIONES -->
+<section class="acreditaciones" id="acreditaciones">
+  <div class="section-tag">Respaldo institucional</div>
+  <h2 class="section-title">Acreditaciones<br>y Certificaciones</h2>
+  <div class="acred-grid">
+    <div class="acred-card reveal">
+      <div class="acred-code">REPSE</div>
+      <div class="acred-name">Reg. de Prestadoras de Servicios</div>
+      <div class="acred-num">AR2454/2021</div>
+      <div class="acred-desc">Registro vigente ante la Secretaría del Trabajo para prestación de servicios especializados de construcción.</div>
+    </div>
+    <div class="acred-card reveal">
+      <div class="acred-code">ISN</div>
+      <div class="acred-name">ISNetworld</div>
+      <div class="acred-num">400-484414</div>
+      <div class="acred-desc">Plataforma de gestión de contratistas reconocida internacionalmente. Cumplimiento con estándares de seguridad Walmart.</div>
+    </div>
+    <div class="acred-card reveal">
+      <div class="acred-code">D&B</div>
+      <div class="acred-name">Dun & Bradstreet — Rating 1A3</div>
+      <div class="acred-num">81-274-2922 · MCR: A</div>
+      <div class="acred-desc">Alto grado de confiabilidad. Capacidad financiera de $3.8M — $7.7M MXN. Análisis de solvencia satisfactorio.</div>
+    </div>
+  </div>
+  <div class="certs-row">
+    <div class="cert-item">NOM-002-STPS-2010 — Manejo de extintores</div>
+    <div class="cert-item">NOM-017-STPS-2008 — Equipo de protección personal</div>
+    <div class="cert-item">NOM-019-STPS-2019 — Comisiones de seguridad</div>
+    <div class="cert-item">NOM-026-STPS-2008 — Señales de seguridad</div>
+    <div class="cert-item">NOM-031-STPS-2011 — Condiciones de seguridad en obra</div>
+    <div class="cert-item">EC0680 — Supervisión en seguridad industrial</div>
+    <div class="cert-item">Certificación OSHA — Seguridad en Construcción</div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contacto" id="contacto">
+  <div class="section-tag">Hablemos</div>
+  <h2 class="section-title" style="margin-bottom: 60px;">Iniciar un<br>Proyecto</h2>
+  <div class="contacto-inner">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-item-label">Correo electrónico</div>
+        <a href="mailto:informacion@grupo-vega.mx" class="contact-item-value">informacion@grupo-vega.mx</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-label">Teléfono</div>
+        <a href="tel:+524436880076" class="contact-item-value">+52 443 688 00 76</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-label">Ubicación</div>
+        <div class="contact-item-value" style="font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.6);">Michoacán, México<br>Cobertura nacional — 18 estados</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-label">Sitio web</div>
+        <div class="contact-item-value">vegaarquitectos.mx</div>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label class="form-label">Nombre y empresa</label>
+        <input class="form-input" type="text" placeholder="Tu nombre completo y empresa">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Correo electrónico</label>
+        <input class="form-input" type="email" placeholder="correo@empresa.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tipo de proyecto</label>
+        <input class="form-input" type="text" placeholder="Ej: Supervisión de obra nueva, remodelación...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mensaje</label>
+        <textarea class="form-textarea" placeholder="Cuéntanos brevemente sobre tu proyecto o necesidad..."></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="width: 100%; padding: 16px; font-size: 14px;">Enviar mensaje</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/wAARCAFQAVADACIAAREBAhEB/9sAQwAIBgYHBgUIBwcHCQkICgwUDQwLCwwZEhMPFB0aHx4dGhwcICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/9sAQwEJCQkMCwwYDQ0YMiEcITIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMAAAERAhEAPwD36iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAWiiigBKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigBaKKKAEooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAFooooASiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAFooooASiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAWiiigBKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKoatrOnaFYPe6peQ2tsn" alt="Logo">
+  </div>
+  <div class="footer-copy">© 2025 Vega Arquitectos S.A. de C.V. — Todos los derechos reservados</div>
+  <div class="footer-domain">vegaarquitectos.mx</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.style.background = window.scrollY > 60
+      ? 'rgba(13,13,13,0.98)'
+      : 'rgba(13,13,13,0.92)';
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    const cta = document.querySelector('.nav-cta');
+    const isOpen = links.style.display === 'flex';
+    links.style.cssText = isOpen ? '' : 'display:flex;flex-direction:column;position:fixed;top:72px;left:0;right:0;background:#0d0d0d;padding:32px 5%;gap:24px;border-bottom:1px solid rgba(255,255,255,0.08);z-index:99;';
+    cta.style.display = isOpen ? '' : 'block';
+  }
+
+  // Form submit placeholder
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.textContent = 'Mensaje enviado ✓';
+    btn.style.background = '#1a7a40';
+    setTimeout(() => {
+      btn.textContent = 'Enviar mensaje';
+      btn.style.background = '';
+      e.target.reset();
+    }, 3000);
+  }
+
+  // Smooth nav links on mobile
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', () => {
+      const links = document.querySelector('.nav-links');
+      if (links.style.display === 'flex') toggleMenu();
+    });
+  });
+</script>
+</body>
+</html>
